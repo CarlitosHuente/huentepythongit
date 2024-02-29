@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ... -->
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <!-- ... Menú principal ... -->
+
+            <!-- Menú de usuario -->
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <span class="navbar-text">
+                            Bienvenido, {{ user.get_username }}
+                            <small>(último acceso: {{ user.last_login|date:"d-m-Y H:i" }})</small>
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'logout' %}" class="nav-link">Desconectarse</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'login' %}" class="nav-link">Iniciar sesión</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        <!-- Contenido principal -->
+        <div class="main-content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <!-- Bootstrap JS y dependencias -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
